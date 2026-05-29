@@ -1,0 +1,3 @@
+title: s3-ship
+description: Deploy static sites to AWS S3 with redirects, CloudFront invalidation, and multi-environment support
+theme: jekyll-theme-minimal

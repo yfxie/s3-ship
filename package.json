@@ -1,0 +1,66 @@
+{
+  "name": "s3-ship",
+  "version": "0.1.0",
+  "description": "Deploy static sites to AWS S3 with redirects, CloudFront invalidation, and multi-environment support",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "bin": {
+    "s3-ship": "./dist/cli.js"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "bun build src/cli.ts src/index.ts --outdir dist --target node --format esm --external @aws-sdk/* --external cac --external yaml --external zod --external tinyglobby && bun run build:types",
+    "build:types": "tsc --emitDeclarationOnly --outDir dist",
+    "test": "bun test",
+    "test:watch": "bun test --watch",
+    "test:coverage": "bun test --coverage",
+    "typecheck": "tsc --noEmit",
+    "lint": "biome check src tests",
+    "lint:fix": "biome check --write src tests",
+    "prepublishOnly": "bun run typecheck && bun test && bun run build"
+  },
+  "keywords": [
+    "aws",
+    "s3",
+    "deploy",
+    "cli",
+    "cloudfront",
+    "static-site",
+    "redirect"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yfxie/s3-ship.git"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@aws-sdk/client-cloudfront": "^3.620.0",
+    "@aws-sdk/client-s3": "^3.620.0",
+    "@aws-sdk/credential-providers": "^3.620.0",
+    "cac": "^6.7.14",
+    "tinyglobby": "^0.2.10",
+    "yaml": "^2.9.0",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
+    "@types/bun": "^1.1.13",
+    "@types/node": "^22.10.0",
+    "typescript": "^5.7.2"
+  }
+}
