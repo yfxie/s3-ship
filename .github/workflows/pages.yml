@@ -20,6 +20,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/configure-pages@v5
+      - name: Inline README into Jekyll index page
+        run: |
+          {
+            printf -- '---\nlayout: default\ntitle: s3-ship\n---\n\n'
+            cat README.md
+          } > docs/index.md
       - uses: actions/jekyll-build-pages@v1
         with:
           source: ./docs

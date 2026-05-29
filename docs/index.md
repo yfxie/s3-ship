@@ -3,4 +3,6 @@ layout: default
 title: s3-ship
 ---
 
-{% include_relative ../README.md %}
+See the [project README](https://github.com/yfxie/s3-ship#readme).
+
+(This page is auto-replaced with the README contents by GitHub Actions during the Pages build.)
