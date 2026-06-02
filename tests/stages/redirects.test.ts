@@ -22,7 +22,7 @@ function makeClient(behavior?: (n: number) => unknown): {
 }
 
 describe('putRedirect', () => {
-  test('puts empty body with WebsiteRedirectLocation header', async () => {
+  test('sets WebsiteRedirectLocation header and omits Body entirely', async () => {
     const { client, calls } = makeClient()
     await putRedirect({
       client,
@@ -34,7 +34,7 @@ describe('putRedirect', () => {
     expect(input?.Bucket).toBe('b')
     expect(input?.Key).toBe('old')
     expect(input?.WebsiteRedirectLocation).toBe('/new')
-    expect(input?.Body === '' || input?.Body === undefined).toBe(true)
+    expect(input?.Body).toBeUndefined()
   })
 
   test('uses fullKey (target-prefixed) as the S3 Key', async () => {
@@ -62,7 +62,7 @@ describe('putRedirect', () => {
     expect(calls.length).toBe(2)
   })
 
-  test('sets ChecksumAlgorithm to avoid SDK chunked-streaming warning', async () => {
+  test('does not set ChecksumAlgorithm (no body to checksum)', async () => {
     const { client, calls } = makeClient()
     await putRedirect({
       client,
@@ -70,7 +70,7 @@ describe('putRedirect', () => {
       redirect: { from: 'a', to: '/b', fullKey: 'a' },
       retry: { attempts: 1, baseMs: 1 },
     })
-    expect(calls[0]?.input.ChecksumAlgorithm).toBe('CRC32')
+    expect(calls[0]?.input.ChecksumAlgorithm).toBeUndefined()
   })
 
   test('sets ContentType to text/html for browser compatibility', async () => {

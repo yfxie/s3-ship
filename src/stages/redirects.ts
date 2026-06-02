@@ -14,10 +14,8 @@ export async function putRedirect(input: PutRedirectInput): Promise<void> {
   const command = new PutObjectCommand({
     Bucket: input.bucket,
     Key: input.redirect.fullKey,
-    Body: '',
     ContentType: 'text/html; charset=utf-8',
     WebsiteRedirectLocation: input.redirect.to,
-    ChecksumAlgorithm: 'CRC32',
   })
   await withRetry(() => input.client.send(command), input.retry)
 }
