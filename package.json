@@ -1,6 +1,6 @@
 {
   "name": "s3-ship",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Deploy static sites to AWS S3 with redirects, CloudFront invalidation, and multi-environment support",
   "type": "module",
   "main": "./dist/index.js",
